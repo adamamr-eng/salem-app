@@ -1312,6 +1312,11 @@
         currentLang = patient.settings.language;
         updateLang(currentLang);
         displayElderMedicines();
+        // أول ما التطبيق يفتح، يوجّه المستخدم لصفحة تسجيل الدخول
+  window.onload = function() {
+    // تأكد إن صفحة sign-in.html موجودة في مجلد public
+    window.location.href = "/signin.html";
+  }
     </script>
 </body>
 </html>
