@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salem - رعاية كبار السن</title>
     <style>
-    
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Cairo', 'Tajawal', Arial, sans-serif; 
@@ -35,109 +34,28 @@
             text-align: center;
             position: relative;
         }
-        en:{
-                appTitle: 'Saleem', appSubtitle: 'Elderly Care with Love', elder: 'Elder', family: 'Family Members',        .logo-container {
+        .logo-container {
             width: 100px;
             height: 100px;
-            margin: 0 auto 10px;
-            background: #FFF8F3;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #FFF8F3 0%, #F5E6D8 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(139, 90, 60, 0.3);
+            border: 3px solid rgba(212, 165, 116, 0.3);
         }
-        .logo-custom {
-            position: relative;
-            font-family: 'Cairo', 'Tajawal', 'Arial', sans-serif;
-            font-size: 36px;
-            font-weight: bold;
-            color: #6B4423;
-            display: flex;
-            align-items: center;
-            letter-spacing: -2px;
+
+        .logo-text {
+            font-size: 38px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #8B5A3C 0%, #D4A574 50%, #6B4423 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .logo-seen {
-            position: relative;
-            margin-right: -5px;
-        }
-        .logo-seen::before {
-            content: '••';
-            position: absolute;
-            top: -10px;
-            left: 5px;
-            font-size: 10px;
-        }
-        .logo-seen::after {
-            content: 'َ';
-            position: absolute;
-            top: -18px;
-            left: 10px;
-            font-size: 18px;
-        }
-        .logo-lam {
-            position: relative;
-            margin: 0 -8px;
-            display: inline-block;
-        }
-        .logo-lam::before {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 8px;
-            border: 2px solid #6B4423;
-            border-radius: 50%;
-            top: 5px;
-            left: -2px;
-            background: rgba(107, 68, 35, 0.1);
-        }
-        .logo-lam::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 8px;
-            border: 2px solid #6B4423;
-            border-radius: 50%;
-            top: 5px;
-            right: -2px;
-            background: rgba(107, 68, 35, 0.1);
-        }
-        .logo-meem {
-            position: relative;
-            transform: scaleX(1.2);
-        }
-        .logo-meem::after {
-            content: '';
-            position: absolute;
-            width: 12px;
-            height: 25px;
-            border: 3px solid #6B4423;
-            border-bottom: none;
-            border-radius: 25px 25px 0 0;
-            bottom: -5px;
-            right: -8px;
-            transform: rotate(-15deg);
-        }
-        }
-        .logo-container {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 10px;
-            background: #FFF8F3;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        .logo-svg {
-            width: 60px;
-            height: 60px;
-        }
+
         .header h1 { 
             font-size: 26px; 
             margin-bottom: 5px;
@@ -675,7 +593,7 @@
     <div class="app-container">
         <div class="header">
             <div class="logo-container">
-                <img src="logo.jpeg" alt="سَليم" style="width: 70px; height: 70px;">
+                <div class="logo-text">سَليم</div>
             </div>
             <h1 id="appTitle">سَليم</h1>
             <p class="subtitle" id="appSubtitle">رعاية كبار السن بكل حب</p>
@@ -692,7 +610,7 @@
         <div class="content">
             <div id="homePage-elder" class="page active">
                 <div id="elderMedicinesList"></div>
-                <h3 id="activitiesTitle">🎯 الأنشطة اليومية</h3>
+                <h3 id="activitiesTitle">الأنشطة اليومية</h3>
                 <div id="activitiesList"></div>
             </div>
 
@@ -942,10 +860,10 @@
         const T = {
             ar: {
                 appTitle: 'سَليم', appSubtitle: 'رعاية كبار السن بكل حب', elder: 'كبير السن', family: 'أفراد العائلة',
-                activities: '🎯 الأنشطة اليومية', breathing: 'تمارين التنفس', memory: 'لعبة الذاكرة', walking: 'المشي الخفيف',
+                activities: 'الأنشطة اليومية', breathing: 'تمارين التنفس', memory: 'لعبة الذاكرة', walking: 'المشي الخفيف',
                 minutes: 'دقائق', takeMed: '✓ تم أخذ الدواء', taken: '✓ تم الأخذ', alert: 'تنبيه!',
                 didntTake: 'لم يأخذ دواء الضغط', compliance: 'التزام بالأدوية', completedAct: 'الأنشطة المكتملة',
-                lastBP: 'آخر قياس ضغط', lastGlucose: 'آخر قياس سكر', summary: '📊 ملخص اليوم', tookMed: 'أخذ دواء السكر ✓',
+                lastBP: 'آخر قياس ضغط', lastGlucose: 'آخر قياس سكر', summary: 'ملخص اليوم', tookMed: 'أخذ دواء السكر ✓',
                 home: 'الرئيسية', medicines: 'الأدوية', meals: 'الوجبات', appointments: 'المواعيد', vitals: 'القياسات',
                 settings: 'إعدادات', addMed: 'إضافة دواء جديد', medName: 'اسم الدواء', dose: 'الجرعة', times: 'المواعيد',
                 add: 'إضافة', currentMeds: 'الأدوية الحالية', delete: 'حذف', addMeal: 'إضافة وجبة جديدة',
@@ -961,10 +879,10 @@
             },
             en: {
                 appTitle: 'Salem', appSubtitle: 'Elderly Care with Love', elder: 'Elder', family: 'Family Members',
-                activities: '🎯 Daily Activities', breathing: 'Breathing Exercises', memory: 'Memory Game', walking: 'Light Walking',
+                activities: 'Daily Activities', breathing: 'Breathing Exercises', memory: 'Memory Game', walking: 'Light Walking',
                 minutes: 'minutes', takeMed: '✓ Take Medicine', taken: '✓ Taken', alert: 'Alert!',
                 didntTake: 'did not take blood pressure medicine', compliance: 'Medicine Compliance', completedAct: 'Completed Activities',
-                lastBP: 'Last BP Reading', lastGlucose: 'Last Glucose', summary: '📊 Today\'s Summary', tookMed: 'Took diabetes medicine ✓',
+                lastBP: 'Last BP Reading', lastGlucose: 'Last Glucose', summary: 'Today\'s Summary', tookMed: 'Took diabetes medicine ✓',
                 home: 'Home', medicines: 'Medicines', meals: 'Meals', appointments: 'Appointments', vitals: 'Vitals',
                 settings: 'Settings', addMed: 'Add New Medicine', medName: 'Medicine Name', dose: 'Dose', times: 'Times',
                 add: 'Add', currentMeds: 'Current Medicines', delete: 'Delete', addMeal: 'Add New Meal',
@@ -980,10 +898,10 @@
             },
             fr: {
                 appTitle: 'Salem', appSubtitle: 'Soins aux personnes âgées avec amour', elder: 'Personne âgée', family: 'Membres de la famille',
-                activities: '🎯 Activités quotidiennes', breathing: 'Exercices de respiration', memory: 'Jeu de mémoire', walking: 'Marche légère',
+                activities: 'Activités quotidiennes', breathing: 'Exercices de respiration', memory: 'Jeu de mémoire', walking: 'Marche légère',
                 minutes: 'minutes', takeMed: '✓ Prendre le médicament', taken: '✓ Pris', alert: 'Alerte!',
                 didntTake: 'n\'a pas pris le médicament pour la tension', compliance: 'Conformité médicamenteuse', completedAct: 'Activités terminées',
-                lastBP: 'Dernière TA', lastGlucose: 'Dernière glycémie', summary: '📊 Résumé d\'aujourd\'hui', tookMed: 'A pris le médicament ✓',
+                lastBP: 'Dernière TA', lastGlucose: 'Dernière glycémie', summary: 'Résumé d\'aujourd\'hui', tookMed: 'A pris le médicament ✓',
                 home: 'Accueil', medicines: 'Médicaments', meals: 'Repas', appointments: 'Rendez-vous', vitals: 'Signes vitaux',
                 settings: 'Paramètres', addMed: 'Ajouter un médicament', medName: 'Nom du médicament', dose: 'Dose', times: 'Horaires',
                 add: 'Ajouter', currentMeds: 'Médicaments actuels', delete: 'Supprimer', addMeal: 'Ajouter un repas',
@@ -1190,7 +1108,7 @@
 
         function markActivityDone(type) {
             const patient = getCurrentPatient();
-            patient.activities.push({ type: type, name: t(type), time: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' }), done: true });
+            patient.activities.push({ type: type, name: t(type), time: new Date().toLocaleTimeString(currentLang === 'ar' ? 'ar-EG' : currentLang === 'fr' ? 'fr-FR' : 'en-US', { hour: '2-digit', minute: '2-digit' }), done: true });
             alert(currentLang === 'ar' ? '✓ تم تسجيل النشاط بنجاح!' : currentLang === 'fr' ? '✓ Activité enregistrée!' : '✓ Activity recorded!');
         }
 
