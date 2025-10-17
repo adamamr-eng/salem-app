@@ -41,6 +41,7 @@ connectDB();
 app.get("/", (req, res) => {
   res.send("🚀 Salem App Server is running and connected to MongoDB!");
 });
+app.use(express.static("public"));
 
 // =======================
 // 🔹 Start Server
