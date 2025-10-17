@@ -2,9 +2,9 @@
   "name": "salem-app",
   "version": "0.1.0",
   "description": "Static server for Salem elderly care demo",
-  "main": "server.js",
+  "main": "sever.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node sever.js"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
