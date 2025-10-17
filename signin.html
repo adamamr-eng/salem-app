@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salem - تسجيل الدخول والتسجيل</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Cairo', 'Tajawal', Arial, sans-serif; 
+            background: linear-gradient(135deg, #D4A574 0%, #8B5A3C 100%);
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px; 
+        }
+        
+        .auth-container {
+            background: #FFF8F3;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(139, 90, 60, 0.3);
+            width: 100%;
+            max-width: 420px;
+            padding: 40px 30px;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #FFF8F3 0%, #F5E6D8 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(139, 90, 60, 0.3);
+            border: 3px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .logo-text {
+            font-size: 38px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #8B5A3C 0%, #D4A574 50%, #6B4423 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1 {
+            text-align: center;
+            color: #6B4423;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #A0826B;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: #F5E6D8;
+            border-radius: 15px;
+            padding: 5px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #6B4423;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #D4A574, #8B5A3C);
+            color: white;
+            box-shadow: 0 4px 12px rgba(139, 90, 60, 0.3);
+        }
+
+        .form-content {
+            display: none;
+        }
+
+        .form-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #6B4423;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #F5E6D8;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #D4A574;
+            box-shadow: 0 0 0 4px rgba(212, 165, 116, 0.1);
+        }
+
+        select.form-input {
+            cursor: pointer;
+        }
+
+        .user-type-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .user-type-card {
+            padding: 20px;
+            border: 3px solid #F5E6D8;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .user-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(139, 90, 60, 0.15);
+        }
+
+        .user-type-card.selected {
+            border-color: #8B5A3C;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1), rgba(139, 90, 60, 0.1));
+            box-shadow: 0 8px 20px rgba(139, 90, 60, 0.2);
+        }
+
+        .user-type-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .user-type-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #6B4423;
+            margin-bottom: 5px;
+        }
+
+        .user-type-desc {
+            font-size: 11px;
+            color: #A0826B;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #D4A574, #8B5A3C);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(139, 90, 60, 0.3);
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 90, 60, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 13px;
+            display: none;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-message {
+            background: #E74C3C;
+            color: white;
+        }
+
+        .success-message {
+            background: #27AE60;
+            color: white;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            color: #A0826B;
+            font-size: 12px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid #F5E6D8;
+            border-top: 3px solid #8B5A3C;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="logo-container">
+            <div class="logo-text">سليم</div>
+        </div>
+
+        <h1>مرحباً بك</h1>
+        <p class="subtitle">رعاية كبار السن بكل حب ❤️</p>
+
+        <div id="errorMessage" class="message error-message"></div>
+        <div id="successMessage" class="message success-message"></div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('signin')">تسجيل الدخول</button>
+            <button class="tab" onclick="switchTab('signup')">إنشاء حساب</button>
+        </div>
+
+        <!-- Sign In Form -->
+        <div id="signinForm" class="form-content active">
+            <form onsubmit="handleSignIn(event)">
+                <div class="form-group">
+                    <label class="form-label">أنت:</label>
+                    <select class="form-input" id="signinRole" required>
+                        <option value="">اختر نوع الحساب</option>
+                        <option value="elder">كبير السن</option>
+                        <option value="family">فرد من العائلة</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">البريد الإلكتروني</label>
+                    <input type="email" class="form-input" id="signinEmail" required placeholder="example@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">كلمة المرور</label>
+                    <input type="password" class="form-input" id="signinPassword" required placeholder="••••••••" minlength="6">
+                </div>
+
+                <button type="submit" class="btn-submit">دخول</button>
+            </form>
+
+            <div class="loading" id="signinLoading">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div id="signupForm" class="form-content">
+            <form onsubmit="handleSignUp(event)">
+                <div class="form-group">
+                    <label class="form-label">أنت:</label>
+                    <div class="user-type-selector">
+                        <div class="user-type-card" onclick="selectUserType('elder')">
+                            <div class="user-type-icon">👴</div>
+                            <div class="user-type-title">كبير السن</div>
+                            <div class="user-type-desc">سأستخدم التطبيق بنفسي</div>
+                        </div>
+                        <div class="user-type-card selected" onclick="selectUserType('family')">
+                            <div class="user-type-icon">👨‍👩‍👦</div>
+                            <div class="user-type-title">فرد من العائلة</div>
+                            <div class="user-type-desc">سأتابع أحد الأقارب</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="userType" value="family">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">الاسم الكامل</label>
+                    <input type="text" class="form-input" id="signupName" required placeholder="أحمد محمد">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">البريد الإلكتروني</label>
+                    <input type="email" class="form-input" id="signupEmail" required placeholder="example@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">رقم الهاتف</label>
+                    <input type="tel" class="form-input" id="signupPhone" placeholder="01234567890">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">كلمة المرور</label>
+                    <input type="password" class="form-input" id="signupPassword" required placeholder="••••••••" minlength="6">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">تأكيد كلمة المرور</label>
+                    <input type="password" class="form-input" id="signupPasswordConfirm" required placeholder="••••••••" minlength="6">
+                </div>
+
+                <button type="submit" class="btn-submit">إنشاء حساب</button>
+            </form>
+
+            <div class="loading" id="signupLoading">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+        <p class="footer-text">
+            بإنشاء حساب، أنت توافق على شروط الخدمة
+        </p>
+    </div>
+
+    <script>
+        let selectedUserType = 'family';
+
+        function switchTab(tab) {
+            hideMessages();
+            
+            document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.form-content').forEach(form => form.classList.remove('active'));
+            document.getElementById(tab + 'Form').classList.add('active');
+        }
+
+        function selectUserType(type) {
+            selectedUserType = type;
+            document.getElementById('userType').value = type;
+            
+            document.querySelectorAll('.user-type-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => errorDiv.style.display = 'none', 5000);
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+        }
+
+        function hideMessages() {
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        async function handleSignIn(event) {
+            event.preventDefault();
+            hideMessages();
+
+            const email = document.getElementById('signinEmail').value;
+            const password = document.getElementById('signinPassword').value;
+            const role = document.getElementById('signinRole').value;
+
+            if (!role) {
+                showError('من فضلك اختر نوع الحساب');
+                return;
+            }
+
+            const loadingDiv = document.getElementById('signinLoading');
+            loadingDiv.classList.add('active');
+
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                const users = JSON.parse(localStorage.getItem('salem_users') || '[]');
+                const user = users.find(u => u.email === email && u.password === password && u.userType === role);
+
+                if (user) {
+                    localStorage.setItem('salem_current_user', JSON.stringify(user));
+                    localStorage.setItem('salem_user_role', role);
+                    showSuccess('✓ تم تسجيل الدخول بنجاح!');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1000);
+                } else {
+                    showError('البريد الإلكتروني أو كلمة المرور غير صحيحة');
+                }
+
+            } catch (error) {
+                showError('حدث خطأ. حاول مرة أخرى.');
+            } finally {
+                loadingDiv.classList.remove('active');
+            }
+        }
+
+        async function handleSignUp(event) {
+            event.preventDefault();
+            hideMessages();
+
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const phone = document.getElementById('signupPhone').value;
+            const password = document.getElementById('signupPassword').value;
+            const passwordConfirm = document.getElementById('signupPasswordConfirm').value;
+            const userType = document.getElementById('userType').value;
+
+            if (password !== passwordConfirm) {
+                showError('كلمات المرور غير متطابقة');
+                return;
+            }
+
+            if (password.length < 6) {
+                showError('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+                return;
+            }
+
+            const loadingDiv = document.getElementById('signupLoading');
+            loadingDiv.classList.add('active');
+
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                const users = JSON.parse(localStorage.getItem('salem_users') || '[]');
+                
+                if (users.find(u => u.email === email)) {
+                    showError('البريد الإلكتروني مسجل مسبقاً');
+                    loadingDiv.classList.remove('active');
+                    return;
+                }
+
+                const newUser = {
+                    id: Date.now(),
+                    name,
+                    email,
+                    phone,
+                    password,
+                    userType,
+                    createdAt: new Date().toISOString(),
+                    patients: userType === 'elder' ? [{
+                        id: 0,
+                        name: name,
+                        age: 0,
+                        phone: phone,
+                        medicines: [],
+                        meals: [],
+                        appointments: [],
+                        vitals: [],
+                        activities: [],
+                        contacts: []
+                    }] : [],
+                    linkedElders: userType === 'family' ? [] : undefined,
+                    settings: { notifications: true, language: 'ar' }
+                };
+
+                users.push(newUser);
+                localStorage.setItem('salem_users', JSON.stringify(users));
+                localStorage.setItem('salem_current_user', JSON.stringify(newUser));
+                localStorage.setItem('salem_user_role', userType);
+
+                showSuccess('✓ تم إنشاء الحساب بنجاح! جارٍ التحويل...');
+
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+
+            } catch (error) {
+                showError('حدث خطأ في إنشاء الحساب');
+            } finally {
+                loadingDiv.classList.remove('active');
+            }
+        }
+
+        // التحقق من تسجيل الدخول
+        const currentUser = localStorage.getItem('salem_current_user');
+        if (currentUser) {
+            window.location.href = 'index.html';
+        }
+
+        // تهيئة البيانات
+        function initializeData() {
+            if (!localStorage.getItem('salem_users')) {
+                const defaultUsers = [
+                    {
+                        id: 1,
+                        name: 'محمد علي',
+                        email: 'elder@test.com',
+                        password: '123456',
+                        userType: 'elder',
+                        phone: '01234567890',
+                        createdAt: new Date().toISOString(),
+                        patients: [{
+                            id: 0,
+                            name: 'محمد علي',
+                            age: 72,
+                            phone: '01234567890',
+                            medicines: [],
+                            meals: [],
+                            appointments: [],
+                            vitals: [],
+                            activities: [],
+                            contacts: []
+                        }],
+                        settings: { notifications: true, language: 'ar' }
+                    },
+                    {
+                        id: 2,
+                        name: 'أحمد محمد',
+                        email: 'family@test.com',
+                        password: '123456',
+                        userType: 'family',
+                        phone: '01111111111',
+                        createdAt: new Date().toISOString(),
+                        patients: [],
+                        linkedElders: [],
+                        settings: { notifications: true, language: 'ar' }
+                    }
+                ];
+                localStorage.setItem('salem_users', JSON.stringify(defaultUsers));
+            }
+        }
+
+        initializeData();
+    </script>
+</body>
+</html>

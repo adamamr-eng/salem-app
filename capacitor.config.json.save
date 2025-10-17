@@ -1,0 +1,9 @@
+{
+  "appId": "com.salem.app",
+  "appName": "SalemApp",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}
+
+
+}
