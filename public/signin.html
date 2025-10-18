@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salem - تسجيل الدخول</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Cairo', 'Tajawal', Arial, sans-serif; 
+            background: linear-gradient(135deg, #D4A574 0%, #8B5A3C 100%);
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 10px; 
+        }
+        
+        .auth-container { 
+            width: 100%; 
+            max-width: 400px; 
+            background: #FFF8F3; 
+            border-radius: 25px; 
+            box-shadow: 0 20px 60px rgba(139, 90, 60, 0.3), 0 0 80px rgba(212, 165, 116, 0.2); 
+            overflow: hidden; 
+            padding: 40px 25px;
+        }
+        
+        .logo-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, #FFF8F3 0%, #F5E6D8 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(139, 90, 60, 0.3);
+            border: 3px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .logo-text {
+            font-size: 38px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #8B5A3C 0%, #D4A574 50%, #6B4423 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1 { 
+            font-size: 24px; 
+            text-align: center;
+            margin-bottom: 8px;
+            color: #6B4423;
+            font-weight: 700;
+        }
+
+        .subtitle { 
+            text-align: center;
+            font-size: 13px; 
+            color: #A0826B;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .form-group { 
+            margin-bottom: 16px; 
+        }
+
+        .form-label { 
+            display: block; 
+            margin-bottom: 6px; 
+            color: #6B4423; 
+            font-size: 12px; 
+            font-weight: 600; 
+        }
+
+        .form-input { 
+            width: 100%; 
+            padding: 12px 14px; 
+            border: 2px solid #F5E6D8; 
+            border-radius: 10px; 
+            font-size: 14px; 
+            font-family: inherit;
+            background: #FFFAF5;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus { 
+            outline: none; 
+            border-color: #D4A574;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+        }
+
+        .btn { 
+            width: 100%;
+            padding: 12px 20px; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 14px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(139, 90, 60, 0.2);
+        }
+
+        .btn-primary { 
+            background: linear-gradient(135deg, #D4A574, #8B5A3C); 
+            color: white; 
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            box-shadow: 0 6px 20px rgba(139, 90, 60, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #A0826B;
+        }
+
+        .toggle-form a {
+            color: #8B5A3C;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .toggle-form a:hover {
+            color: #D4A574;
+        }
+
+        .form-page {
+            display: none;
+        }
+
+        .form-page.active {
+            display: block;
+        }
+
+        .error-message {
+            background: #FADBD8;
+            color: #922B21;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            margin-bottom: 14px;
+            border-right: 3px solid #E74C3C;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            background: #D5F4E6;
+            color: #186A3B;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            margin-bottom: 14px;
+            border-right: 3px solid #27AE60;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        [dir="ltr"] .error-message,
+        [dir="ltr"] .success-message {
+            border-right: none;
+            border-left: 3px solid;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="logo-container">
+            <div class="logo-text">سَليم</div>
+        </div>
+
+        <!-- Sign In Form -->
+        <div id="signInForm" class="form-page active">
+            <h1>تسجيل الدخول</h1>
+            <p class="subtitle">أهلاً بك في رعاية كبار السن</p>
+            
+            <div class="error-message" id="signInError"></div>
+
+            <div class="form-group">
+                <label class="form-label">البريد الإلكتروني</label>
+                <input type="email" class="form-input" id="signInEmail" placeholder="your@email.com">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">كلمة المرور</label>
+                <input type="password" class="form-input" id="signInPassword" placeholder="••••••••">
+            </div>
+
+            <button class="btn btn-primary" onclick="handleSignIn()">دخول</button>
+
+            <div class="toggle-form">
+                ليس لديك حساب؟ <a onclick="toggleForms()">إنشاء حساب جديد</a>
+            </div>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div id="signUpForm" class="form-page">
+            <h1>إنشاء حساب جديد</h1>
+            <p class="subtitle">ابدأ رحلة الرعاية الآن</p>
+
+            <div class="error-message" id="signUpError"></div>
+            <div class="success-message" id="signUpSuccess"></div>
+
+            <div class="form-group">
+                <label class="form-label">اسم المستخدم</label>
+                <input type="text" class="form-input" id="signUpName" placeholder="اسمك الكامل">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">البريد الإلكتروني</label>
+                <input type="email" class="form-input" id="signUpEmail" placeholder="your@email.com">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">كلمة المرور</label>
+                <input type="password" class="form-input" id="signUpPassword" placeholder="••••••••">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">تأكيد كلمة المرور</label>
+                <input type="password" class="form-input" id="signUpConfirmPassword" placeholder="••••••••">
+            </div>
+
+            <button class="btn btn-primary" onclick="handleSignUp()">إنشاء الحساب</button>
+
+            <div class="toggle-form">
+                لديك حساب بالفعل؟ <a onclick="toggleForms()">تسجيل الدخول</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            document.getElementById('signInForm').classList.toggle('active');
+            document.getElementById('signUpForm').classList.toggle('active');
+            clearErrors();
+        }
+
+        function clearErrors() {
+            document.getElementById('signInError').classList.remove('show');
+            document.getElementById('signUpError').classList.remove('show');
+            document.getElementById('signUpSuccess').classList.remove('show');
+        }
+
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.classList.add('show');
+            setTimeout(() => element.classList.remove('show'), 5000);
+        }
+
+        function showSuccess(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.classList.add('show');
+        }
+
+        function handleSignIn() {
+            clearErrors();
+            const email = document.getElementById('signInEmail').value.trim();
+            const password = document.getElementById('signInPassword').value;
+
+            if (!email) {
+                showError('signInError', 'من فضلك أدخل البريد الإلكتروني');
+                return;
+            }
+
+            if (!password) {
+                showError('signInError', 'من فضلك أدخل كلمة المرور');
+                return;
+            }
+
+            // التحقق من صيغة البريد
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('signInError', 'البريد الإلكتروني غير صحيح');
+                return;
+            }
+
+            // البحث عن المستخدم في localStorage
+            const users = JSON.parse(localStorage.getItem('salem_users')) || [];
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                localStorage.setItem('salem_logged_in', 'true');
+                localStorage.setItem('salem_current_user', JSON.stringify(user));
+                window.location.href = 'index.html';
+            } else {
+                showError('signInError', 'البريد أو كلمة المرور غير صحيحة');
+            }
+        }
+
+        function handleSignUp() {
+            clearErrors();
+            const name = document.getElementById('signUpName').value.trim();
+            const email = document.getElementById('signUpEmail').value.trim();
+            const password = document.getElementById('signUpPassword').value;
+            const confirmPassword = document.getElementById('signUpConfirmPassword').value;
+
+            if (!name) {
+                showError('signUpError', 'من فضلك أدخل اسمك');
+                return;
+            }
+
+            if (!email) {
+                showError('signUpError', 'من فضلك أدخل البريد الإلكتروني');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('signUpError', 'البريد الإلكتروني غير صحيح');
+                return;
+            }
+
+            if (!password || password.length < 6) {
+                showError('signUpError', 'كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showError('signUpError', 'كلمات المرور غير متطابقة');
+                return;
+            }
+
+            // التحقق من وجود البريد مسبقاً
+            const users = JSON.parse(localStorage.getItem('salem_users')) || [];
+            if (users.some(u => u.email === email)) {
+                showError('signUpError', 'هذا البريد الإلكتروني مسجل بالفعل');
+                return;
+            }
+
+            // إضافة المستخدم الجديد
+            const newUser = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                password: password,
+                createdAt: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            localStorage.setItem('salem_users', JSON.stringify(users));
+
+            showSuccess('signUpSuccess', 'تم إنشاء الحساب بنجاح! يتم تحويلك...');
+            
+            setTimeout(() => {
+                localStorage.setItem('salem_logged_in', 'true');
+                localStorage.setItem('salem_current_user', JSON.stringify(newUser));
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+
+        // التحقق من تسجيل الدخول السابق
+        if (localStorage.getItem('salem_logged_in')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

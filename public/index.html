@@ -1311,6 +1311,13 @@
                 alert(currentLang === 'ar' ? `🚨 تم إرسال تنبيه طوارئ لـ ${patient.contacts.length} جهة اتصال` : currentLang === 'fr' ? `🚨 Alerte envoyée à ${patient.contacts.length} contacts` : `🚨 Alert sent to ${patient.contacts.length} contacts`);
             }
         }
+        function handleLogout() {
+            if (confirm(currentLang === 'ar' ? 'هل تريد تسجيل الخروج؟' : currentLang === 'fr' ? 'Déconnexion?' : 'Logout?')) {
+                localStorage.removeItem('salem_logged_in');
+                localStorage.removeItem('salem_current_user');
+                window.location.href = 'signin.html';
+            }
+        }
 
         const patient = getCurrentPatient();
         currentLang = patient.settings.language;
