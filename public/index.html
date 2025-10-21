@@ -852,8 +852,8 @@
     </div>
 
     <script>
-       // if (!localStorage.getItem('salem_logged_in')) {
-//   window.location.href = 'signin.html';
+    // if (!localStorage.getItem('salem_logged_in')) {
+//   window.location.href = 'index.html';
 // }
 
 
@@ -1317,7 +1317,7 @@
             if (confirm(currentLang === 'ar' ? 'هل تريد تسجيل الخروج؟' : currentLang === 'fr' ? 'Déconnexion?' : 'Logout?')) {
                 localStorage.removeItem('salem_logged_in');
                 localStorage.removeItem('salem_current_user');
-                window.location.href = 'signin.html';
+                window.location.href = 'index.html';
             }
         }
 
@@ -1325,11 +1325,11 @@
         currentLang = patient.settings.language;
         updateLang(currentLang);
         displayElderMedicines();
-        // أول ما التطبيق يفتح، يوجّه المستخدم لصفحة تسجيل الدخول
-  window.onload = function() {
-    // تأكد إن صفحة sign-in.html موجودة في مجلد public
-    window.location.href = "/signin.html";
-  }
+                // أول ما التطبيق يفتح، يمكن توجيه المستخدم لصفحة البداية (index)
+    window.onload = function() {
+        // توجيه قصير إلى الصفحة الرئيسية إن لزم
+        window.location.href = "/index.html";
+    }
     </script>
 </body>
 </html>
