@@ -42,26 +42,14 @@ connectDB();
 // 🔹 Routes
 // =======================
 
-// 🏠 أول صفحة تظهر (Sign In)
+// ✅ الصفحة الرئيسية — أول صفحة تظهر
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "signin.html"));
-});
-
-// ✅ API بسيط لتسجيل الدخول (مؤقت)
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-
-  // مثال: بيانات ثابتة للتجربة
-  if (email === "test@test.com" && password === "1234") {
-    res.json({ success: true, message: "تم تسجيل الدخول بنجاح!" });
-  } else {
-    res.json({ success: false, message: "بيانات غير صحيحة" });
-  }
-});
-
-// 📄 بعد تسجيل الدخول — الصفحة الرئيسية
-app.get("/home", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// ✅ API بسيط للتأكد إن السيرفر شغال
+app.get("/status", (req, res) => {
+  res.json({ success: true, message: "🚀 Server is running and MongoDB connected!" });
 });
 
 // =======================
@@ -70,6 +58,3 @@ app.get("/home", (req, res) => {
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
 });
-
-
-
